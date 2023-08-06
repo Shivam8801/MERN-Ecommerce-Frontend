@@ -11,13 +11,13 @@ export const fetchAllProductsAsync = createAsyncThunk(
   async () => {
     const response = await fetchAllProducts();
     return response.data;
-  } 
+  }
 );
 
 export const fetchProductsByFiltersAsync = createAsyncThunk(
   'product/fetchProductsByFilters',
-  async (filter) => {
-    const response = await fetchProductsByFilters(filter);
+  async ({ filter, sort }) => {
+    const response = await fetchProductsByFilters(filter, sort);
     return response.data;
   }
 );
