@@ -8,6 +8,35 @@ export function fetchAllProducts() {
 }
 
 
+
+export function fetchCategories() {
+  return new Promise(async (resolve) => {
+    const response = await fetch('http://localhost:8080/categories')
+    const data = await response.json()
+    resolve({ data })
+  }
+  );
+}
+
+
+export function fetchBrands() {
+  return new Promise(async (resolve) => {
+    const response = await fetch('http://localhost:8080/brands')
+    const data = await response.json()
+    resolve({ data })
+  }
+  );
+}
+
+export function fetchSelectedProduct(id) {
+  return new Promise(async (resolve) => {
+    const response = await fetch('http://localhost:8080/Products/' + id)
+    const data = await response.json()
+    resolve({ data })
+  }
+  );
+}
+
 export function fetchProductsByFilters(filter, sort, pagination) {
 
   // filter = {"category":["smartphones", "laptops"]}
