@@ -128,7 +128,7 @@ function Cart() {
             </div> :
 
             <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-              <p className="mt-0.5 text-sm text-gray-500">Your Shopping Cart is Empty.</p>
+              <p className="font-medium mt-0.5 text-sm text-gray-500">Your Shopping Cart is Empty.</p>
               <div className="mt-6">
               </div>
               <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
