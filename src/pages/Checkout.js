@@ -6,7 +6,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { selectItems, updateCartAsync, deleteItemsFromCartAsync } from '../features/cart/cartSlice'
 import { useForm } from "react-hook-form";
 import { selectLoggedInUser, updateUserAsync } from '../features/auth/authSlice';
-import { createOrderAsync } from '../features/order/orderSlice';
+import { createOrderAsync, selectCurrentOrder } from '../features/order/orderSlice';
 
 
 
@@ -16,6 +16,8 @@ function Checkout() {
 
     const items = useSelector(selectItems)
     const dispatch = useDispatch()
+    const currentOrder = useSelector(selectCurrentOrder)
+
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
@@ -49,15 +51,17 @@ function Checkout() {
     }
 
     const handleOrder = () => {
-        const order = {items, totalAmount, totalItems, user, paymentMethod, selectedAddress}
+        const order = { items, totalAmount, totalItems, user, paymentMethod, selectedAddress, status: 'pending' }
         dispatch(createOrderAsync(order))
     }
 
     return (
 
         <>
-            {items.length === 0 && <Navigate to='/' replace={true}></Navigate>}
+            {!items.length && <Navigate to='/' replace={true}></Navigate>}
 
+            {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>}
+        
 
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
@@ -357,7 +361,7 @@ function Checkout() {
                                 <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                 <div className="mt-6">
                                     <div
-                                    onClick={handleOrder}
+                                        onClick={handleOrder}
                                         href="#"
                                         className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 cursor-pointer"
                                     >

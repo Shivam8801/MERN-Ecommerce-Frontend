@@ -42,9 +42,21 @@ export function deleteItemsFromCart(ItemId) {
       headers: { 'content-type': 'application/json' }
     })
     const data = await response.json()
-    resolve({ data:{id:ItemId} })
+    resolve({ data: { id: ItemId } })
   }
   );
 }
 
 
+
+export function resetCart(userId) {
+  return new Promise(async (resolve) => {
+    const res = await fetchItemsByUserId(userId)
+    const items = res.data
+    for (let item of items) {
+      await deleteItemsFromCart(item.id)
+    }
+    resolve({ status: "success" })
+  })
+
+}
