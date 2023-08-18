@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createUser, checkUser, updateUser } from './authAPI';
+import { createUser, checkUser } from './authAPI';
+import { updateUser } from '../user/userAPI';
+
 
 const initialState = {
   loggedInUser: null,
@@ -31,7 +33,7 @@ export const checkUserAsync = createAsyncThunk(
   }
 );
 
-export const userSlice = createSlice({
+export const authSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -78,4 +80,4 @@ export const selectError = (state) => state.auth.error;
 
 
 
-export default userSlice.reducer;
+export default authSlice.reducer;

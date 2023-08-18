@@ -5,8 +5,9 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { Link, Navigate } from 'react-router-dom';
 import { selectItems, updateCartAsync, deleteItemsFromCartAsync } from '../features/cart/cartSlice'
 import { useForm } from "react-hook-form";
-import { selectLoggedInUser, updateUserAsync } from '../features/auth/authSlice';
+import { updateUserAsync } from '../features/auth/authSlice';
 import { createOrderAsync, selectCurrentOrder } from '../features/order/orderSlice';
+import { selectUserInfo } from '../features/user/userSlice';
 
 
 
@@ -18,7 +19,6 @@ function Checkout() {
     const dispatch = useDispatch()
     const currentOrder = useSelector(selectCurrentOrder)
 
-
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const totalAmount = items.reduce((amount, item) => item.price * item.quantity + amount, 0)
@@ -28,7 +28,7 @@ function Checkout() {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState('cash');
 
-    const user = useSelector(selectLoggedInUser)
+    const user = useSelector(selectUserInfo)
 
 
     const handleQuantity = (e, item) => {
