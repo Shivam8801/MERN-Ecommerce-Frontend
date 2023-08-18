@@ -2338,6 +2338,7 @@
     {
       "email": "shivam@gmail.com",
       "password": "Shivam@8801",
+      "role": "user",
       "addresses": [
         {
           "name": "Shivam Nikam",
@@ -2359,6 +2360,13 @@
         }
       ],
       "id": 1
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "Admin@123",
+      "addresses": [],
+      "role": "admin",
+      "id": 2
     }
   ],
   "cart": [],
