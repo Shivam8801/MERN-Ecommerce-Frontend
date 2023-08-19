@@ -199,7 +199,7 @@ export default function AdminProductList() {
                                         <div className="lg:col-span-3">
                                             <div>
                                                 <Link to="/admin/product-form"
-                                                className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 mt-5 mx-10">
+                                                    className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 mt-5 mx-10">
                                                     Add New Product
                                                 </Link>
                                             </div>
@@ -487,16 +487,22 @@ function ProductGrid({ products }) {
                                             <p className="text-sm font-medium block text-gray-900">${Math.round(product.price * (1 - product.discountPercentage / 100))}</p>
                                             <p className="text-sm font-medium block text-gray-400 line-through">${product.price}</p>
                                         </div>
-
-
                                     </div>
+
+                                    {product.deleted && <div>
+                                        <p className='text-sm text-red-400'>Product Deleted!</p>
+                                    </div>}
 
                                 </div>
                             </Link>
 
 
                             <div>
-                                <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-5">Edit Product</button>
+                                <Link to={`/admin/product-form/edit/${product.id}`}>
+                                    <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-5">
+                                        Edit Product
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     ))}
