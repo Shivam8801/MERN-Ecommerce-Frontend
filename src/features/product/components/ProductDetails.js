@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchSelectedProductAsync, selectProductByID } from '../productSlice'
 import { useParams } from 'react-router-dom'
 import { addToCart } from '../../cart/cartAPI'
-import { addToCartAsync } from '../../cart/cartSlice'
+import { addToCartAsync, selectItems } from '../../cart/cartSlice'
 import { selectLoggedInUser } from '../../auth/authSlice'
 import { discountedPrice } from '../../../app/constant'
 
@@ -83,12 +83,21 @@ function ProductDetails() {
   const product = useSelector(selectProductByID)
   const user = useSelector(selectLoggedInUser)
   const params = useParams()
+  const cartItems = useSelector(selectItems)
 
   const handleCart = (e) => {
     e.preventDefault()
-    const newItem = { ...product, quantity: 1, user: user.id }
-    delete newItem['id']
-    dispatch(addToCartAsync(newItem))
+
+    // logic to prevent same item 2x in cart
+
+    if (cartItems.findIndex(item => item.productId === product.id) >= 0) {
+      console.log("Item already added!")
+    }
+    else {
+      const newItem = { ...product, productId: product.id, quantity: 1, user: user.id }
+      delete newItem['id']
+      dispatch(addToCartAsync(newItem))
+    }
   }
 
   useEffect(() => {

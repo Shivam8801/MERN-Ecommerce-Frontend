@@ -489,8 +489,13 @@ function ProductGrid({ products }) {
                                         </div>
                                     </div>
 
-                                    {product.deleted && <div>
+                                    {product.deleted && <div className='mt-1'>
                                         <p className='text-sm text-red-400'>Product Deleted!</p>
+                                    </div>}
+
+
+                                    {product.stock <= 0 && <div className='mt-1'>
+                                        <p className='text-sm text-red-400'>Out of Stock!</p>
                                     </div>}
 
                                 </div>
