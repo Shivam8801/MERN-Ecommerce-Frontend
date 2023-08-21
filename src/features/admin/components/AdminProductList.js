@@ -6,7 +6,7 @@ import { ChevronLeftIcon, ChevronRightIcon, StarIcon } from '@heroicons/react/20
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProductsAsync, selectAllProducts, fetchProductsByFiltersAsync, selectTotalItems, selectBrands, selectCategories, fetchBrandsAsync, fetchCategoriesAsync } from '../../product/productSlice';
-import { ITEMS_PER_PAGE } from '../../../app/constant';
+import { ITEMS_PER_PAGE, discountedPrice } from '../../../app/constant';
 
 
 
@@ -484,7 +484,7 @@ function ProductGrid({ products }) {
                                         </div>
 
                                         <div>
-                                            <p className="text-sm font-medium block text-gray-900">${Math.round(product.price * (1 - product.discountPercentage / 100))}</p>
+                                            <p className="text-sm font-medium block text-gray-900">${discountedPrice(product)}</p>
                                             <p className="text-sm font-medium block text-gray-400 line-through">${product.price}</p>
                                         </div>
                                     </div>

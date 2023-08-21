@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { updateUserAsync } from '../features/auth/authSlice';
 import { createOrderAsync, selectCurrentOrder } from '../features/order/orderSlice';
 import { selectUserInfo } from '../features/user/userSlice';
+import { discountedPrice } from '../app/constant';
 
 
 
@@ -21,7 +22,7 @@ function Checkout() {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const totalAmount = items.reduce((amount, item) => item.price * item.quantity + amount, 0)
+    const totalAmount = items.reduce((amount, item) => discountedPrice(item) * item.quantity + amount, 0)
     const totalItems = items.reduce((total, item) => item.quantity + total, 0)
 
 
@@ -306,7 +307,7 @@ function Checkout() {
                                                             <h3>
                                                                 <a href={item.href}>{item.title}</a>
                                                             </h3>
-                                                            <p className="ml-4">${item.price}</p>
+                                                            <p className="ml-4">${discountedPrice(item)}</p>
                                                         </div>
                                                         <p className="mt-1 text-sm text-gray-500">{item.brand}</p>
                                                     </div>

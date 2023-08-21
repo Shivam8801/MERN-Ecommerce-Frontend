@@ -4,9 +4,9 @@ import Navbar from "../features/navbar/Navbar"
 function AdminHome() {
     return (
         <div>
-        <Navbar>
-            <AdminProductList></AdminProductList>
-        </Navbar>
+            <Navbar>
+                <AdminProductList></AdminProductList>
+            </Navbar>
         </div>
     )
 }
