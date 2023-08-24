@@ -8,6 +8,7 @@ import { addToCart } from '../../cart/cartAPI'
 import { addToCartAsync, selectItems } from '../../cart/cartSlice'
 import { selectLoggedInUser } from '../../auth/authSlice'
 import { discountedPrice } from '../../../app/constant'
+import { useAlert } from "react-alert";
 
 
 const colors = [
@@ -84,19 +85,27 @@ function ProductDetails() {
   const user = useSelector(selectLoggedInUser)
   const params = useParams()
   const cartItems = useSelector(selectItems)
+  const alert = useAlert()
 
-  const handleCart = (e) => {
-    e.preventDefault()
+  const handleCart = (e, stock) => {
+    e.preventDefault();
 
     // logic to prevent same item 2x in cart
 
     if (cartItems.findIndex(item => item.productId === product.id) >= 0) {
-      console.log("Item already added!")
+      alert.info("Item already added!");
     }
+
+    else if(stock === 0)
+    {
+      alert.info("Item Out of Stock!")
+    }
+
     else {
       const newItem = { ...product, productId: product.id, quantity: 1, user: user.id }
       delete newItem['id']
       dispatch(addToCartAsync(newItem))
+      alert.info("Item added to cart!");
     }
   }
 
@@ -302,12 +311,14 @@ function ProductDetails() {
               </div>
 
               <button
-                onClick={handleCart}
+                onClick={e=>handleCart(e, product.stock)}
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to Cart
               </button>
+
+
             </form>
           </div>
 
@@ -322,20 +333,6 @@ function ProductDetails() {
             </div>
 
             <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-10">
               <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
               <div className="mt-4 space-y-6">
@@ -345,7 +342,7 @@ function ProductDetails() {
           </div>
         </div>
       </div>}
-    </div>
+    </div >
   )
 }
 

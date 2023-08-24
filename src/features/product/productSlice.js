@@ -69,6 +69,9 @@ export const updateProductAsync = createAsyncThunk(
   }
 );
 
+
+
+
 export const productSlice = createSlice({
   name: 'product',
   initialState,
@@ -144,6 +147,7 @@ export const productSlice = createSlice({
         const index = state.products.findIndex(product => product.id === action.payload.id)
         state.products[index] = action.payload;
       })
+
   },
 });
 
@@ -155,7 +159,8 @@ export const selectBrands = (state) => state.product.brands;
 export const selectCategories = (state) => state.product.categories;
 export const selectProductByID = (state) => state.product.selectedProduct;
 
-
 export const selectTotalItems = (state) => state.product.totalItems;
+
+export const selectProductListStatus = (state)=> state.product.status;
 
 export default productSlice.reducer;

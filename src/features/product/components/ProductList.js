@@ -5,9 +5,10 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 import { ChevronLeftIcon, ChevronRightIcon, StarIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllProductsAsync, selectAllProducts, fetchProductsByFiltersAsync, selectTotalItems, selectBrands, selectCategories, fetchBrandsAsync, fetchCategoriesAsync } from '../productSlice';
+import { fetchAllProductsAsync, selectAllProducts, fetchProductsByFiltersAsync, selectTotalItems, selectBrands, selectCategories, fetchBrandsAsync, fetchCategoriesAsync, selectProductListStatus } from '../productSlice';
 import { ITEMS_PER_PAGE, discountedPrice } from '../../../app/constant';
 import Pagination from '../../common/Pagination';
+import { Grid } from 'react-loader-spinner';
 
 const sortOptions = [
     { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
@@ -33,6 +34,9 @@ function classNames(...classes) {
 
 
 export default function ProductList() {
+
+
+
     const dispatch = useDispatch()
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
@@ -42,6 +46,7 @@ export default function ProductList() {
 
 
     const totalItems = useSelector(selectTotalItems)
+    const status = useSelector(selectProductListStatus)
 
     const filters = [
         {
@@ -56,10 +61,10 @@ export default function ProductList() {
         }
     ]
 
+
     const [filter, setFilter] = useState({});
     const [sort, setSort] = useState({});
     const [page, setPage] = useState(1);
-
 
 
     const handleFilter = (e, section, option) => {
@@ -86,6 +91,7 @@ export default function ProductList() {
     }
 
 
+
     const handleSort = (e, option) => {
         // console.log(section.id, option.value)
         const sort = { _sort: option.sort, _order: option.order }
@@ -95,7 +101,6 @@ export default function ProductList() {
     const handlePage = (page) => {
         setPage(page)
     }
-
 
 
     useEffect(() => {
@@ -109,7 +114,6 @@ export default function ProductList() {
         dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }))
     }, [dispatch, filter, sort, page])
 
-
     useEffect(() => {
         setPage(1)
     }, [totalItems, sort])
@@ -120,6 +124,7 @@ export default function ProductList() {
             <div>
                 <div>
                     <div className="bg-white">
+
                         <div>
                             <MobileFilter handleFilter={handleFilter} mobileFiltersOpen={mobileFiltersOpen} setMobileFiltersOpen={setMobileFiltersOpen} filters={filters}></MobileFilter>
 
@@ -196,7 +201,7 @@ export default function ProductList() {
 
                                         {/* Product grid */}
                                         <div className="lg:col-span-3">
-                                            <ProductGrid products={products}></ProductGrid>
+                                            <ProductGrid products={products} status={status}></ProductGrid>
                                         </div>
 
                                         {/* Product Grid End */}
@@ -375,11 +380,22 @@ function DesktopFilter({ handleFilter, filters }) {
 
 // pagination component was here
 
-function ProductGrid({ products }) {
+function ProductGrid({ products, status }) {
     return (
         <div className="bg-white">
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
-
+                {status === 'loading' &&
+                    <Grid
+                        height="80"
+                        width="80"
+                        color="rgb(79,70,229)"
+                        ariaLabel="grid-loading"
+                        radius="12.5"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                }
 
                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                     {products.map((product) => (

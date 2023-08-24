@@ -77,8 +77,9 @@ export function fetchProductsByFilters(filter, sort, pagination) {
     const categoryValues = filter[key]
 
     if (categoryValues.length) {
-      const lastCategoryValue = categoryValues[categoryValues.length - 1]
-      queryString += `${key}=${lastCategoryValue}&`
+      for (let subKey of categoryValues) {
+        queryString += `${key}=${subKey}&`
+      }
     }
   }
 
