@@ -5,6 +5,7 @@ import { selectBrands, selectCategories, fetchBrandsAsync, fetchCategoriesAsync,
 import { useForm } from "react-hook-form";
 import { useParams, Link } from 'react-router-dom';
 import Modal from '../../common/Modal';
+import { useAlert } from 'react-alert';
 
 
 export default function ProductForm() {
@@ -14,6 +15,7 @@ export default function ProductForm() {
     const brands = useSelector(selectBrands)
     const categories = useSelector(selectCategories)
     const [openModal, setOpenModal] = useState(false);
+    const alert = useAlert()
 
     const { register, handleSubmit, setValue, reset, formState: { errors } } = useForm();
 
@@ -56,7 +58,7 @@ export default function ProductForm() {
 
     return (
         <>
-            <Modal title={`Delete ${selectedProduct?.title}?`} message="Are you sure you want to delete product?" dangerOption="Delete" cancelOption="Cancel" dangerAction={handleDelete} cancelAction={() => setOpenModal(false)} showModal={openModal}></Modal>
+            {selectedProduct && <Modal title={`Delete ${selectedProduct?.title}?`} message="Are you sure you want to delete product?" dangerOption="Delete" cancelOption="Cancel" dangerAction={handleDelete} cancelAction={() => setOpenModal(false)} showModal={openModal}></Modal>}
 
             <form onSubmit={handleSubmit((data) => {
                 console.log(data)
@@ -75,11 +77,15 @@ export default function ProductForm() {
                     product.id = params.id
                     product.rating = selectedProduct.rating || 0;
                     dispatch(updateProductAsync(product))
+                    alert.success('Product Updated!')
+
                     reset()
                 }
 
                 else {
                     dispatch(createProductAsync(product))
+                    alert.success('Product Created!')
+                    reset()
                 }
             })}>
                 <div className="space-y-12 bg-white p-12">

@@ -116,10 +116,11 @@ export default function AdminOrders() {
                                                     <div className="mr-2">
                                                         <img
                                                             className="w-6 h-6 rounded-full"
-                                                            src={item.thumbnail}
+                                                            src={item.product.thumbnail}
+                                                            alt={item.product.title}
                                                         />
                                                     </div>
-                                                    <span className='font-bold'>{item.title} - #{item.quantity} - ${discountedPrice(item)}</span>
+                                                    <span className='font-bold'>{item.product.title} - #{item.quantity} - ${discountedPrice(item.product)}</span>
                                                 </div>
                                             ))}
 

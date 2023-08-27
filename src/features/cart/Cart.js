@@ -5,7 +5,6 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom';
 import { selectItems, updateCartAsync, deleteItemsFromCartAsync, selectCartStatus } from '../cart/cartSlice'
 import { discountedPrice } from '../../app/constant';
-import { Grid } from 'react-loader-spinner';
 import Modal from '../common/Modal';
 
 
@@ -39,19 +38,6 @@ function Cart() {
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
             <h1 className="text-4xl my-12 font-bold tracking-tight text-gray-900">Cart</h1>
             <div className="flow-root">
-
-              {status === 'loading' &&
-                <Grid
-                  height="80"
-                  width="80"
-                  color="rgb(79,70,229)"
-                  ariaLabel="grid-loading"
-                  radius="12.5"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  visible={true}
-                />
-              }
 
               <ul role="list" className="-my-6 divide-y divide-gray-200">
                 {items.map((item) => (

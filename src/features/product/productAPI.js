@@ -1,13 +1,3 @@
-export function fetchAllProducts() {
-  return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/products')
-    const data = await response.json()
-    resolve({ data })
-  }
-  );
-}
-
-
 
 export function fetchCategories() {
   return new Promise(async (resolve) => {
@@ -40,7 +30,7 @@ export function fetchSelectedProduct(id) {
 
 export function createProduct(product) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/Products/',{
+    const response = await fetch('http://localhost:8080/Products/', {
       method: 'POST',
       body: JSON.stringify(product),
       headers: { 'content-type': 'application/json' }
@@ -66,7 +56,7 @@ export function updateProduct(update) {
   );
 }
 
-export function fetchProductsByFilters(filter, sort, pagination) {
+export function fetchProductsByFilters(filter, sort, pagination, admin) {
 
   // filter = {"category":["smartphones", "laptops"]}
   // sort = {_sort:"price", _order:"desc"}
@@ -89,6 +79,10 @@ export function fetchProductsByFilters(filter, sort, pagination) {
 
   for (let key in pagination) {
     queryString += `${key}=${pagination[key]}&`;
+  }
+
+  if (admin) {
+    queryString += 'admin=true';
   }
 
 

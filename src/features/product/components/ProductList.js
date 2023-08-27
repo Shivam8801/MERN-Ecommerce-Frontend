@@ -420,13 +420,20 @@ function ProductGrid({ products, status }) {
                                             <StarIcon className="w-6 h-6 inline"></StarIcon>
                                             <span className="mx-1 align-bottom">{product.rating}</span>
                                         </p>
+
+
                                     </div>
 
                                     <div>
                                         <p className="text-sm font-medium block text-gray-900">${discountedPrice(product)}</p>
                                         <p className="text-sm font-medium block text-gray-400 line-through">${product.price}</p>
                                     </div>
+
                                 </div>
+
+                                {product.stock === 0 && <div className='mt-1'>
+                                    <p className='text-sm text-red-400'>Out of Stock!</p>
+                                </div>}
                             </div>
                         </Link>
                     ))}
@@ -435,3 +442,10 @@ function ProductGrid({ products, status }) {
         </div>
     )
 }
+
+
+// {
+//     product.stock <= 0 && <div className='mt-1'>
+//         <p className='text-sm text-red-400'>Out of Stock!</p>
+//     </div>
+// }

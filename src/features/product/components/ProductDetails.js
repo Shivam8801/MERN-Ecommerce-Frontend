@@ -94,6 +94,7 @@ function ProductDetails() {
 
     if (cartItems.findIndex(item => item.product.id === product.id) >= 0) {
       alert.info("Item already added!");
+
     }
 
     else if (stock === 0) {
@@ -103,7 +104,7 @@ function ProductDetails() {
     else {
       const newItem = { product: product.id, quantity: 1, user: user.id }
       dispatch(addToCartAsync(newItem))
-      alert.info("Item added to cart!");
+      alert.success("Item added to cart!");
     }
   }
 

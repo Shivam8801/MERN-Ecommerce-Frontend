@@ -35,7 +35,7 @@ import AlertTemplate from 'react-alert-template-basic';
 
 
 const options = {
-  timeout: 5000,
+  timeout: 1000,
   position: positions.TOP_CENTER
 };
 
