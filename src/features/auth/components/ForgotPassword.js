@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { selectLoggedInUser, checkUserAsync, selectError } from '../authSlice';
 
 
 export default function ForgotPassword() {

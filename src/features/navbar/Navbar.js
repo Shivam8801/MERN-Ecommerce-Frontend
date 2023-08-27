@@ -169,6 +169,7 @@ function Navbar({ children }) {
                                         <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
                                     </div>
                                     <div className="ml-3">
+                                    {/* this info should come from userInfo */}
                                         <div className="text-base font-medium leading-none text-white">{user.name}</div>
                                         <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
                                     </div>

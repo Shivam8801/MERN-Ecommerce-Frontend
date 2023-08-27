@@ -92,18 +92,16 @@ function ProductDetails() {
 
     // logic to prevent same item 2x in cart
 
-    if (cartItems.findIndex(item => item.productId === product.id) >= 0) {
+    if (cartItems.findIndex(item => item.product.id === product.id) >= 0) {
       alert.info("Item already added!");
     }
 
-    else if(stock === 0)
-    {
+    else if (stock === 0) {
       alert.info("Item Out of Stock!")
     }
 
     else {
-      const newItem = { ...product, productId: product.id, quantity: 1, user: user.id }
-      delete newItem['id']
+      const newItem = { product: product.id, quantity: 1, user: user.id }
       dispatch(addToCartAsync(newItem))
       alert.info("Item added to cart!");
     }
@@ -311,7 +309,7 @@ function ProductDetails() {
               </div>
 
               <button
-                onClick={e=>handleCart(e, product.stock)}
+                onClick={e => handleCart(e, product.stock)}
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
@@ -342,7 +340,7 @@ function ProductDetails() {
           </div>
         </div>
       </div>}
-    </div >
+    </div>
   )
 }
 
