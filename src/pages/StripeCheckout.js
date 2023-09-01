@@ -27,10 +27,6 @@ export default function StripeCheckout() {
         totalAmount: currentOrder.totalAmount,
         orderId: currentOrder.id,
       }),
-
-      meta: {
-        order_id: currentOrder.id,
-      },
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
