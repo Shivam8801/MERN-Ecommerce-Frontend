@@ -102,7 +102,7 @@ function ProductDetails() {
     }
 
     else {
-      const newItem = { product: product.id, quantity: 1, user: user.id }
+      const newItem = { product: product.id, quantity: 1 }
       dispatch(addToCartAsync(newItem))
       alert.success("Item added to cart!");
     }

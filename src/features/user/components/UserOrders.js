@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLoggedInUserOrdersAsync, selectUserInfo, selectUserOrders } from '../userSlice';
-import { selectLoggedInUser } from '../../auth/authSlice';
 import { Link } from 'react-router-dom';    
 import { discountedPrice } from '../../../app/constant';
 
 
 function UserOrders() {
     const dispatch = useDispatch();
-    const userInfo = useSelector(selectUserInfo)
     const orders = useSelector(selectUserOrders)
 
 
@@ -34,8 +32,8 @@ function UserOrders() {
 
 
     useEffect(() => {
-        dispatch(fetchLoggedInUserOrdersAsync(userInfo.id))
-    }, [dispatch, userInfo])
+        dispatch(fetchLoggedInUserOrdersAsync())
+    }, [dispatch])
 
 
     return (
@@ -57,7 +55,7 @@ function UserOrders() {
             </div>
 
 
-            {orders.map((order) =>
+            {orders && orders.map((order) =>
             (
                 <div>
                     <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8 py-2">

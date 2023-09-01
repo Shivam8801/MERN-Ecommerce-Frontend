@@ -16,8 +16,8 @@ export const addToCartAsync = createAsyncThunk(
 
 export const fetchItemsByUserIdAsync = createAsyncThunk(
   'cart/fetchItemsByUserId',
-  async (UserId) => {
-    const response = await fetchItemsByUserId(UserId);
+  async () => {
+    const response = await fetchItemsByUserId();
     return response.data;
   }
 );
@@ -40,8 +40,8 @@ export const deleteItemsFromCartAsync = createAsyncThunk(
 
 export const resetCartAsync = createAsyncThunk(
   'cart/resetCart',
-  async (userId) => {
-    const response = await resetCart(userId);
+  async () => {
+    const response = await resetCart();
     return response.data;
   }
 );
@@ -74,6 +74,12 @@ export const cartSlice = createSlice({
       .addCase(fetchItemsByUserIdAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.items = action.payload;
+        state.cartLoaded = true;
+      })
+
+      .addCase(fetchItemsByUserIdAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.cartLoaded = true;
       })
 
       // update cart

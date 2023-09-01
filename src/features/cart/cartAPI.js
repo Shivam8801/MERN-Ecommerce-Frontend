@@ -11,9 +11,9 @@ export function addToCart(item) {
   );
 }
 
-export function fetchItemsByUserId(UserId) {
+export function fetchItemsByUserId() {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/cart?user=' + UserId)
+    const response = await fetch('http://localhost:8080/cart')
     const data = await response.json()
     resolve({ data })
   }
@@ -49,9 +49,9 @@ export function deleteItemsFromCart(ItemId) {
 
 
 
-export function resetCart(userId) {
+export function resetCart() {
   return new Promise(async (resolve) => {
-    const res = await fetchItemsByUserId(userId)
+    const res = await fetchItemsByUserId()
     const items = res.data
     for (let item of items) {
       await deleteItemsFromCart(item.id)
