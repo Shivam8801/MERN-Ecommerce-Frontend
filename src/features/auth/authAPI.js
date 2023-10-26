@@ -50,7 +50,7 @@ export function checkAuth() {
     });
 }
 
-export function signOut(userId) {
+export function signOut() {
     return new Promise(async (resolve, reject) => {
         try {
             const response = await fetch("/auth/logout");

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { selectLoggedInUser, loginUserAsync, selectError } from "../authSlice";
-import image from "../../../img/online_shopping_1.jpg";
 
 export default function Login() {
     const dispatch = useDispatch();
