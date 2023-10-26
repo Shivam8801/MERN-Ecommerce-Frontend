@@ -17,6 +17,7 @@ function Signup() {
     return (
         <>
             {user && <Navigate to='/' replace={true}></Navigate>}
+            <h1 className="text-5xl font-bold text-blue-600 text-center my-5">AmazeKart Ecommerce Store 🛒</h1>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <img

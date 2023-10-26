@@ -13,8 +13,11 @@ import { useAlert } from "react-alert";
 
 const colors = [
   { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-  { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
   { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
+  { name: 'Red', class: 'bg-red-700', selectedClass: 'ring-red-900' },
+  { name: 'Blue', class: 'bg-blue-700', selectedClass: 'ring-blue-900' },
+  { name: 'Green', class: 'bg-green-700', selectedClass: 'ring-green-900' },
+  { name: 'Purple', class: 'bg-purple-700', selectedClass: 'ring-purple-900' },
 ]
 
 const sizes = [
@@ -248,11 +251,11 @@ function ProductDetails() {
               </div>
 
               {/* Sizes */}
-              <div className="mt-10">
+              {(product.category === "mens-shirts" || product.category === "womens-dresses" || product.category === "tops")&&  <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium text-gray-900">Size</h3>
                   <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                    Size guide
+                    Size guide 
                   </a>
                 </div>
 
@@ -307,7 +310,7 @@ function ProductDetails() {
                     ))}
                   </div>
                 </RadioGroup>
-              </div>
+              </div>}
 
               <button
                 onClick={e => handleCart(e, product.stock)}
